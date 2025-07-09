@@ -1,0 +1,24 @@
+{
+  "originHash" : "0483adf41d3330513ace3072a67e39ba1ab128800f13426bd0bd7c45e2d39f22",
+  "pins" : [
+    {
+      "identity" : "ios-core-data-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FastPix/iOS-core-data-sdk.git",
+      "state" : {
+        "revision" : "6c69b2173910923de151a7598453aa3dbc014243",
+        "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "theoplayer-sdk-apple",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/THEOplayer/theoplayer-sdk-apple.git",
+      "state" : {
+        "revision" : "585d6d89db438bf516a4d0bebf5b7b1bf9aefcbe",
+        "version" : "9.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}
