@@ -3,7 +3,6 @@ import Foundation
 import FastpixiOSVideoDataCore
 @preconcurrency import THEOplayerSDK
 
-
 public class THEOplayerTracker: NSObject {
     
     public var fpCoreMetrix = FastpixMetrix()
@@ -13,12 +12,7 @@ public class THEOplayerTracker: NSObject {
     public var customMetadata: [String: Any] = [:]
     public var periodicTimeObserver: Any?
     public var playerTimer: Timer?
-    
-    public var lastPlayheadTimeUpdated: CFAbsoluteTime = 0.0
-    public var lastAdvertisedBitrate : Int = 0
     public var videoTransitionState: String = ""
-    public var lastTimeUpdate = 0.0
-    public var isEnded: Bool = false
     public var theoPlayListener: EventListener?
     public var theoSourceListener: EventListener?
     public var theoPlayingListener: EventListener?
@@ -92,7 +86,7 @@ public class THEOplayerTracker: NSObject {
     public func fetchPlayerCurrentTime() -> Int {
         guard let playerItem = self.player  else { return 0 }
         let currentTime = playerItem.currentTime * 1000
-        return Int(currentTime)
+        return Int(round(currentTime))
     }
     
     public func fetchPlayerVideoState() -> [String: Any] {
@@ -132,25 +126,15 @@ public class THEOplayerTracker: NSObject {
         guard let player = player else { return }
         
         theoPlayListener = player.addEventListener(type: PlayerEventTypes.PLAY) { (_: PlayEvent) in
-            
             self.dispatchEvent(event: "play", metadata: [:])
         }
-        
-        theoSourceListener = player.addEventListener(type: PlayerEventTypes.SOURCE_CHANGE) { (evt) in
-            let source = evt.source?.sources.first
-            if (source != nil) {
-                
-            }
-        }
-        
+    
         theoPlayingListener = player.addEventListener(type: PlayerEventTypes.PLAYING) { (_: PlayingEvent) in
             self.setSizeDimensions()
-            
             self.dispatchEvent(event: "playing", metadata: [:])
         }
         
         theoPauseListener = player.addEventListener(type: PlayerEventTypes.PAUSE) { (_: PauseEvent) in
-            
             let time = player.currentTime
             if let duration = player.duration, time < duration {
                 self.dispatchEvent(event: "pause", metadata: [:])
@@ -159,11 +143,8 @@ public class THEOplayerTracker: NSObject {
         
         theoTimeListener = player.addEventListener(type: PlayerEventTypes.TIME_UPDATE) { (evt: TimeUpdateEvent) in
             let time = evt.currentTime
-            if let duration = player.duration {
-                
-                if time > 0, time < duration {
-                    self.dispatchEvent(event: "timeUpdate", metadata: ["viewer_timestamp": self.getUniqueTimeStamp()])
-                }
+            if let duration = player.duration, time > 0, time < duration {
+                self.dispatchEvent(event: "timeUpdate", metadata: ["viewer_timestamp": self.getUniqueTimeStamp()])
             }
         }
         
@@ -176,28 +157,23 @@ public class THEOplayerTracker: NSObject {
         }
         
         theoErrorListener = player.addEventListener(type: PlayerEventTypes.ERROR) { [weak self] (event: ErrorEvent) in
-            guard let self = self else { return }
+            guard let self = self,
+                  let theoError = event.errorObject else { return }
+            
+            let errorCode = theoError.code.rawValue
+            let errorMessage = theoError.message
+            
+            guard errorCode != 0 && errorCode != NSNotFound else { return }
             
             var errorMetadata: [String: Any] = [:]
+            errorMetadata["player_error_code"] = "\(errorCode)"
             
-            // Safely extract THEOplayer error
-            if let theoError = event.errorObject {
-                let errorCode = theoError.code.rawValue
-                if errorCode != 0 && errorCode != NSNotFound {
-                    errorMetadata["player_error_code"] = "\(errorCode)"
-                }
-                
-                let errorMessage = theoError.message
-                if !errorMessage.isEmpty {
-                    errorMetadata["player_error_message"] = errorMessage
-                }
+            if !errorMessage.isEmpty {
+                errorMetadata["player_error_message"] = errorMessage
             }
             
-            // Only dispatch meaningful errors
-            if errorMetadata["player_error_code"] != nil {
-                self.dispatchEvent(event: "error", metadata: errorMetadata)
-                self.videoTransitionState = "error"
-            }
+            self.dispatchEvent(event: "error", metadata: errorMetadata)
+            self.videoTransitionState = "error"
         }
         
         theoCompleteListener = player.addEventListener(type: PlayerEventTypes.ENDED) { (_: EndedEvent) in
@@ -267,14 +243,8 @@ public class THEOplayerTracker: NSObject {
     }
     
     public func resetInitialization() {
-        
         self.playerToken = ""
-        self.lastAdvertisedBitrate = 0
         self.customMetadata = [:]
-        self.lastPlayheadTimeUpdated = 0.0
         self.videoTransitionState = ""
-        self.lastTimeUpdate = 0.0
-        self.isEnded = false
     }
-    
 }
