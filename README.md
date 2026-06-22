@@ -1,5 +1,5 @@
 
-**FastPix Video Data THEOPlayer** enhances the integration steps with [THEOPlayer](https://github.com/iOS-video-data-theoplayer), enabling the collection of player analytics. It enables automatic tracking of video performance metrics, making the data readily available on the [FastPix dashboard](https://dashboard.fastpix.io) for monitoring and analysis. While the SDK is developed in Swift, the published spm package currently includes only the Swift output.
+**FastPix Video Data THEOPlayer** enhances the integration steps with [THEOPlayer](https://github.com/iOS-video-data-theoplayer), enabling the collection of player analytics. It enables automatic tracking of video performance metrics, making the data readily available on the [FastPix dashboard](https://dashboard.fastpix.com) for monitoring and analysis. While the SDK is developed in Swift, the published spm package currently includes only the Swift output.
 
 # Key Features:
 
@@ -7,15 +7,15 @@
 - **Monitor Playback Quality:** Ensure video streaming by monitoring real-time metrics, including bitrate, buffering, startup performance, render quality, and playback failure errors.
 - **Error Management:** Identify and resolve playback failures quickly with detailed error reports.
 - **Customizable Tracking:** Flexible configuration to match your specific monitoring needs.
-- **Centralized Dashboard:** Visualize and compare metrics on the [FastPix dashboard](https://dashboard.fastpix.io) to make data-driven decisions.
+- **Centralized Dashboard:** Visualize and compare metrics on the [FastPix dashboard](https://dashboard.fastpix.com) to make data-driven decisions.
 
 # Prerequisites:
 
 ## Getting started with FastPix:
 
-To track and analyze video performance, initialize the SDK with your Workspace key (learn more about [Workspaces here](https://docs.fastpix.io/docs/workspaces)):
+To track and analyze video performance, initialize the SDK with your Workspace key (learn more about [Workspaces here](https://fastpix.com/docs/getting-started/set-up-a-workspace)):
 
-1. **[Access the FastPix Dashboard](https://dashboard.fastpix.io)**: Log in and navigate to the Workspaces section.
+1. **[Access the FastPix Dashboard](https://dashboard.fastpix.com)**: Log in and navigate to the Workspaces section.
 2. **Locate Your Workspace Key**: Copy the Workspace Key for client-side monitoring. Include this key in your Swift code on every page where you want to track video performance.
 
 # Step 1: Installation and Setup:
@@ -76,7 +76,7 @@ fpDataSDK.trackTheoPlayer(
 
 ## Define player metadata
 
-Check out the [user-passable metadata](https://docs.fastpix.io/docs/user-passable-metadata) documentation to see the metadata supported by FastPix. You can use custom metadata fields like `custom_1` to `custom_10` for your business logic, giving you the flexibility to pass any required values. Named attributes, such as `video_title` and `video_id`, can be passed directly as they are.
+Check out the [user-passable metadata](https://fastpix.com/docs/working-with-video-data/pass-custom-metadata-to-metrics) documentation to see the metadata supported by FastPix. You can use custom metadata fields like `custom_1` to `custom_10` for your business logic, giving you the flexibility to pass any required values. Named attributes, such as `video_title` and `video_id`, can be passed directly as they are.
 
 ```swift
 let customMetadata = [
