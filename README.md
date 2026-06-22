@@ -1,5 +1,5 @@
 
-**FastPix Video Data THEOPlayer** enhances the integration steps with [THEOPlayer](https://github.com/iOS-video-data-theoplayer), enabling the collection of player analytics. It enables automatic tracking of video performance metrics, making the data readily available on the [FastPix dashboard](https://dashboard.fastpix.com) for monitoring and analysis. While the SDK is developed in Swift, the published spm package currently includes only the Swift output.
+**FastPix Video Data THEOPlayer** enhances the integration steps with [THEOPlayer](https://github.com/FastPix/iOS-theoplayer-data), enabling the collection of player analytics. It enables automatic tracking of video performance metrics, making the data readily available on the [FastPix dashboard](https://dashboard.fastpix.com) for monitoring and analysis. While the SDK is developed in Swift, the published spm package currently includes only the Swift output.
 
 # Key Features:
 
