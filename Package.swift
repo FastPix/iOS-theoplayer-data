@@ -27,11 +27,16 @@ let package = Package(
             dependencies: [
                 .product(name: "FastpixiOSVideoDataCore", package: "iOS-core-data-sdk"), // Link the Git package to your local package
                 .product(name: "THEOplayerSDK",package: "theoplayer-sdk-apple")
-            ]
+            ],
+            path: packageName
         ),
         .testTarget(
             name: "\(packageName)Tests",
-            dependencies: [.target(name: packageName)]
+            dependencies: [.target(name: packageName)],
+            path: "\(packageName)Tests"
         ),
-    ]
+    ],
+    // This source is not Swift 6 concurrency-clean; build it in Swift 5 language
+    // mode (a tools-6.0 manifest would otherwise default targets to Swift 6).
+    swiftLanguageModes: [.v5]
 )

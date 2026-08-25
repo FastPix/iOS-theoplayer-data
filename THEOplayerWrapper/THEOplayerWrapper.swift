@@ -90,20 +90,8 @@ public class THEOplayerTracker: NSObject {
     }
     
     public func fetchPlayerVideoState() -> [String: Any] {
-        theoSourceListener = player?.addEventListener(type: PlayerEventTypes.SOURCE_CHANGE) { (evt) in
-            let source = evt.source?.sources.first
-            if (source != nil) {
-                
-                let videoURL  = source?.src
-                
-                if (videoURL != nil) {
-                    videoState["video_source_url"] = videoURL
-                }
-            }
-        }
-        
         let duration: Double? = self.player?.duration
-        
+
         var videoState: [String:Any] =  [
             "video_source_width": self.player?.videoWidth,
             "video_source_height": self.player?.videoHeight,
@@ -113,7 +101,11 @@ public class THEOplayerTracker: NSObject {
             "player_autoplay_on": "true",
             "video_source_duration": ((duration ?? 0) * 1000)
         ]
-        
+
+        if let videoURL = self.player?.source?.sources.first?.src {
+            videoState["video_source_url"] = videoURL
+        }
+
         return videoState
     }
     
