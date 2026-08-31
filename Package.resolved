@@ -1,13 +1,13 @@
 {
-  "originHash" : "f7a7134ec5bc503e07cbe8e498b37d0ea650cddd49d97deada7e7e61880ee402",
+  "originHash" : "a223c86a542b3e066867ae03b3e6d810e3d8d48a1af2657f3a7bf3c4a44d4931",
   "pins" : [
     {
       "identity" : "ios-core-data-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/FastPix/iOS-core-data-sdk.git",
       "state" : {
-        "revision" : "0f156873472227c0d8366097e39e8c9c87cf5a8f",
-        "version" : "1.0.5"
+        "revision" : "1c349f3095ebd15d6fa221bc8f4d0456a95f7b1f",
+        "version" : "1.0.6"
       }
     },
     {
