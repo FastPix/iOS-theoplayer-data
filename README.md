@@ -44,7 +44,7 @@ Do not skip the verification step. If analytics do not appear in your dashboard,
 
 To complete this integration you need:
 
-- **A Mac with Xcode** and an iOS app targeting **iOS 13 or later**.
+- **A Mac with Xcode 16 or later** (the package uses `swift-tools-version: 6.0`) and an iOS app targeting **iOS 13 or later**.
 - **THEOplayer already integrated** in your app (this SDK measures a THEOplayer you create; it is not a player itself). If you are new to THEOplayer, see the [THEOplayer iOS SDK](https://github.com/THEOplayer/theoplayer-sdk-apple).
 - **A FastPix account** - sign up on the [FastPix dashboard](https://dashboard.fastpix.com).
 - **Your FastPix workspace key** - see [step 1](#1-get-your-fastpix-workspace-key).
